@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyHub — Student Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>📚</span>
+            <h2>StudyHub</h2>
+        </div>
+
+        <nav>
+            <button class="nav-item active" data-section="dashboard">
+                🏠 Dashboard
+            </button>
+
+            <button class="nav-item" data-section="tasks">
+                ✅ Tasks
+            </button>
+
+            <button class="nav-item" data-section="subjects">
+                📖 Subjects
+            </button>
+
+            <button class="nav-item" data-section="timer">
+                ⏱️ Study Timer
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button id="themeToggle">🌙 Dark Mode</button>
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="topbar">
+
+            <div>
+                <p class="welcome-small">Welcome back 👋</p>
+                <h1>Good Evening, Suvojit</h1>
+                <p id="currentDate"></p>
+            </div>
+
+            <div class="profile">
+                <div class="profile-avatar">SP</div>
+            </div>
+
+        </header>
+
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="section active-section">
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div>
+                        <p>Total Tasks</p>
+                        <h2 id="totalTasks">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div>
+                        <p>Completed</p>
+                        <h2 id="completedTasks">0</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div>
+                        <p>Study Time</p>
+                        <h2 id="studyTime">0m</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div>
+                        <p>Study Streak</p>
+                        <h2 id="studyStreak">0 days</h2>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Progress -->
+            <div class="dashboard-grid">
+
+                <div class="card progress-card">
+
+                    <div class="card-header">
+                        <div>
+                            <p class="section-label">Today's Progress</p>
+                            <h2>Keep going! 🚀</h2>
+                        </div>
+
+                        <span id="progressPercent">0%</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div id="progressFill"></div>
+                    </div>
+
+                    <p class="progress-text">
+                        Complete your tasks to reach today's goal.
+                    </p>
+
+                </div>
+
+
+                <!-- Quick Actions -->
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <p class="section-label">Quick Actions</p>
+                            <h2>Study smarter</h2>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+
+                        <button class="quick-btn" id="quickAddTask">
+                            <span>➕</span>
+                            Add Task
+                        </button>
+
+                        <button class="quick-btn" id="quickTimer">
+                            <span>⏱️</span>
+                            Start Timer
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Today's Tasks -->
+            <div class="card tasks-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <p class="section-label">Your Schedule</p>
+                        <h2>Today's Tasks</h2>
+                    </div>
+
+                    <button class="primary-btn" id="addTaskBtn">
+                        + Add Task
+                    </button>
+
+                </div>
+
+                <div id="dashboardTasks" class="task-list"></div>
+
+                <div id="emptyTasks" class="empty-state">
+                    <div>📚</div>
+                    <h3>No tasks yet</h3>
+                    <p>Add your first study task.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Tasks Section -->
+        <section id="tasks" class="section">
+
+            <div class="page-title">
+                <div>
+                    <p class="section-label">Manage your work</p>
+                    <h2>My Tasks</h2>
+                </div>
+
+                <button class="primary-btn" id="tasksAddBtn">
+                    + Add Task
+                </button>
+            </div>
+
+            <div class="task-controls">
+
+                <input
+                    type="text"
+                    id="searchTask"
+                    placeholder="🔍 Search tasks..."
+                >
+
+                <select id="taskFilter">
+                    <option value="all">All Tasks</option>
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                </select>
+
+            </div>
+
+            <div class="card">
+                <div id="allTasks" class="task-list"></div>
+
+                <div id="emptyAllTasks" class="empty-state">
+                    <div>📝</div>
+                    <h3>No tasks found</h3>
+                    <p>Add a task to get started.</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Subjects Section -->
+        <section id="subjects" class="section">
+
+            <div class="page-title">
+                <div>
+                    <p class="section-label">Organize your learning</p>
+                    <h2>Subjects</h2>
+                </div>
+            </div>
+
+            <div class="subjects-grid" id="subjectsGrid">
+
+                <div class="subject-card">
+                    <div class="subject-icon">☕</div>
+                    <h3>Java</h3>
+                    <p>Programming</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">🗄️</div>
+                    <h3>DBMS</h3>
+                    <p>Database</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">🧠</div>
+                    <h3>Machine Learning</h3>
+                    <p>AI / ML</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">💻</div>
+                    <h3>Operating Systems</h3>
+                    <p>Computer Science</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">📊</div>
+                    <h3>DAA</h3>
+                    <p>Algorithms</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">🔢</div>
+                    <h3>DSA</h3>
+                    <p>Problem Solving</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Timer Section -->
+        <section id="timer" class="section">
+
+            <div class="timer-page">
+
+                <p class="section-label">Focus Mode</p>
+
+                <h2>Study Timer</h2>
+
+                <p class="timer-description">
+                    Focus for 25 minutes, then take a short break.
+                </p>
+
+                <div class="timer-circle">
+
+                    <div>
+                        <span id="timerDisplay">25:00</span>
+                        <p>Focus Session</p>
+                    </div>
+
+                </div>
+
+                <div class="timer-controls">
+
+                    <button id="startTimer" class="primary-btn">
+                        ▶ Start
+                    </button>
+
+                    <button id="pauseTimer" class="secondary-btn">
+                        ⏸ Pause
+                    </button>
+
+                    <button id="resetTimer" class="secondary-btn">
+                        ↻ Reset
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Add Task Modal -->
+    <div class="modal" id="taskModal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div>
+                    <p class="section-label">New Task</p>
+                    <h2>Add Study Task</h2>
+                </div>
+
+                <button id="closeModal" class="close-btn">×</button>
+            </div>
+
+            <form id="taskForm">
+
+                <label>Task Name</label>
+
+                <input
+                    type="text"
+                    id="taskName"
+                    placeholder="e.g. Study Java Collections"
+                    required
+                >
+
+
+                <label>Subject</label>
+
+                <select id="taskSubject">
+
+                    <option value="Java">Java</option>
+                    <option value="DBMS">DBMS</option>
+                    <option value="Machine Learning">
+                        Machine Learning
+                    </option>
+                    <option value="Operating Systems">
+                        Operating Systems
+                    </option>
+                    <option value="DAA">DAA</option>
+                    <option value="DSA">DSA</option>
+
+                </select>
+
+
+                <label>Priority</label>
+
+                <select id="taskPriority">
+
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+
+                </select>
+
+
+                <button type="submit" class="primary-btn full-btn">
+                    Create Task
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
